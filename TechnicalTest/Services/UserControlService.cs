@@ -74,6 +74,12 @@ namespace TechnicalTest.Services
             {
                 var entityUser = db.Users.FirstOrDefault(e => e.UserId == userId);
 
+                if(entityUser ==null)
+                {
+                    throw new WebApiException(
+                   new WebApiError(WebApiErrorCode.InvalidArguments, "User Id not found"));
+                }
+
                 entityUser.FullName = model.FullName;
                 entityUser.Email = model.Email;
                 entityUser.Phone = model.Phone;
@@ -95,9 +101,10 @@ namespace TechnicalTest.Services
                 {
                     db.Users.Remove(entityUser);
                     db.SaveChanges();
+                    return new BoolResult(true);
                 }
 
-                return new BoolResult(true);
+                return new BoolResult(false);
             }
         }
     }

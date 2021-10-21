@@ -25,7 +25,11 @@ namespace TechnicalTest.Models
                 throw new WebApiException(
                     new WebApiError(WebApiErrorCode.InvalidArguments, "Full Name cannot be null or empty"));
             }
-
+            if (string.IsNullOrEmpty(Email))
+            {
+                throw new WebApiException(
+                    new WebApiError(WebApiErrorCode.InvalidArguments, "Email cannot be null or empty"));
+            }
             if (!IsValid(Email))
             {
                 throw new WebApiException(
